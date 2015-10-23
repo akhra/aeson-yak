@@ -10,7 +10,7 @@
 --     instance ToJSON Hideous where
 --       toJSON x = object [ "yak" .= hairy (yak x) ]
 --     instance FromJSON Hideous where
---       parseJSON (Object o) = Hideous \<$> (shave \<$> o .: "yak")
+--       parseJSON (Object o) = Hideous \<$> (shave \<$> o .:? "yak")
 --   @
 --
 --   The leaky way:
