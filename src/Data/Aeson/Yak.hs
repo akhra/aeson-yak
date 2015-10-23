@@ -1,28 +1,44 @@
--- | There are two ways to use this library: the way with extra boilerplate,
---   or the way with a leaky abstraction. A truly good solution would fix it
---   all with Template Haskell; but the author is not a truly good Haskeller,
---   so this will have to do for now.
---
---   The boilerplate way:
---   
---   @
---     data Hideous = Hideous { yak :: [String] }
---     instance ToJSON Hideous where
---       toJSON x = object [ "yak" .= hairy (yak x) ]
---     instance FromJSON Hideous where
---       parseJSON (Object o) = Hideous \<$> (shave \<$> o .:? "yak")
---   @
---
---   The leaky way:
---   
---   @
---     data Abhorrent = Abhorrent { yak :: Yak String }
---     $(deriveJSON defaultOptions{omitNothingFields=True} ''Abhorrent)
---   @
---   
---   Which to prefer depends on how many yaks you need to deal with /vs./ how
---   much you hate cleaning up yak droppings in the rest of your codebase.
-
+-- |
+-- There are two ways to use this library: the way with extra boilerplate,
+-- or the way with a leaky abstraction. A truly good solution would fix it
+-- all with Template Haskell; but the author is not a truly good Haskeller,
+-- so this will have to do for now.
+-- 
+-- The boilerplate way:
+-- 
+-- @
+-- data Hideous = Hideous { yak :: [String] }
+-- instance ToJSON Hideous where
+--   toJSON x = object [ "yak" .= hairy (yak x) ]
+-- instance FromJSON Hideous where
+--   parseJSON (Object o) = Hideous \<$> (shave \<$> o .:? "yak")
+-- @
+-- >>> encode $ Hideous ["foo","bar"]
+-- "{\"yak\":[\"foo\",\"bar\"]}"
+-- >>> encode $ Hideous ["baz"]
+-- "{\"yak\":\"baz\"}"
+-- >>> encode $ Hideous []
+-- "{\"yak\":null}"
+-- >>> yak <$> decode "{\"yak\":[\"foo\",\"bar\"]}"
+-- Just ["foo", "bar"]
+-- >>> yak <$> decode "{\"yak\":\"baz\"}"
+-- Just ["baz"]
+-- >>> yak <$> decode "{}"
+-- Just []
+-- 
+-- The leaky way:
+-- 
+-- @
+-- data Abhorrent = Abhorrent { yak :: Yak String }
+-- $(deriveJSON defaultOptions{omitNothingFields=True} ''Abhorrent)
+-- @
+-- >>> encode . Abhorrent . hairy $ ["shaven","shorn","sheared"]
+-- "{\"yak\":[\"shaven\",\"shorn\",\"sheared\"]}"
+-- >>> shave . yak <$> decode "{}"
+-- Just []
+-- 
+-- Which to prefer depends on how many yaks you need to deal with /vs./ how
+-- much you hate cleaning up yak droppings in the rest of your codebase.
 module Data.Aeson.Yak
 ( Yak
 , hairy
