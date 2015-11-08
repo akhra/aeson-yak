@@ -67,7 +67,9 @@ shave :: Yak a -> [a]
 shave Nothing = []
 shave (Just nit) = pick nit
 
-newtype Lousy a = Lousy { pick :: [a] }
+newtype Lousy a = Lousy { pick :: [a] } deriving (Eq)
+instance (Show a) => Show (Lousy a) where
+  show = ("Lousy " ++) . show . pick
 
 instance (ToJSON a) => ToJSON (Lousy a) where
   toJSON nit = case pick nit of
