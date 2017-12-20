@@ -1,5 +1,5 @@
 name:                aeson-yak
-version:             0.1.1.2
+version:             0.1.1.3
 synopsis:            Handle JSON that may or may not be a list, or exist
 description:
   According to the standard promoted by Schema.org, the same JSON object
