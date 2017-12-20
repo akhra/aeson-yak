@@ -1,5 +1,5 @@
 name:                aeson-yak
-version:             0.1.1.1
+version:             0.1.1.2
 synopsis:            Handle JSON that may or may not be a list, or exist
 description:
   According to the standard promoted by Schema.org, the same JSON object
@@ -13,7 +13,7 @@ license:             MIT
 license-file:        LICENSE
 author:              Theodore Lief Gannon
 maintainer:          tanuki@gmail.com
-copyright:           Copyright (c) Theodore Lief Gannon, 2015
+copyright:           Copyright (c) Theodore Lief Gannon, 2015-2017
 category:            Data
 build-type:          Simple
 extra-source-files:  CHANGELOG
@@ -26,6 +26,6 @@ source-repository head
 library
   exposed-modules:     Data.Aeson.Yak
   build-depends:       base >= 4.8 && < 5
-                     , aeson >= 0.4 && < 0.12
+                     , aeson >= 0.4
   hs-source-dirs:      src
   default-language:    Haskell2010

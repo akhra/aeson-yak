@@ -1,3 +1,7 @@
+0.1.1.2: Eliminate upper bounds on Aeson
+
+0.1.1.1: Bump upper bounds on Aeson
+
 0.1.1.0: Eq and Show instances for Lousy.
 
 0.1.0.2: Get CHANGELOG into the tarball.
